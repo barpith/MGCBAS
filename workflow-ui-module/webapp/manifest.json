@@ -1,0 +1,450 @@
+{
+    "_version": "1.26.0",
+    "sap.app": {
+        "id": "com.mgc.conscrewprd.workflowuimodule",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.8.4",
+            "toolsId": "46042254-6cb1-4bba-b407-ae5e9197d3d9"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "mgcdb-prd-srv": {
+                "uri": "/v2/mgcdb-prd-srv",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/mgcdb-prd-srv/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "v2": {
+                "uri": "/odata/v2/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/v2/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.82.2",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.mgc.conscrewprd.workflowuimodule.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {}
+            },
+            "mgcdb-prd-srv": {
+                "dataSource": "mgcdb-prd-srv",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "v2": {
+                "dataSource": "v2",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "com.mgc.conscrewprd.workflowuimodule.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "RouteMyTaskUI",
+                    "pattern": ":?query:",
+                    "target": [
+                        "TargetMyTaskUI"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetMyTaskUI": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "MyTaskUI",
+                    "viewName": "MyTaskUI"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "com.mgc.conscrewprd.workflowuimodule.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "crewprd"
+    },
+    "sap.bpa.task": {
+        "_version": "1.0.0",
+        "outcomes": [
+            {
+                "id": "approve",
+                "label": "Approve"
+            },
+            {
+                "id": "reject",
+                "label": "Reject"
+            }
+        ],
+        "inputs": {
+            "$schema": "http://json-schema.org/draft-07/schema",
+            "title": "input",
+            "type": "object",
+            "properties": {
+                "main": {
+                    "type": "array",
+                    "title": "main",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [],
+                        "properties": {
+                            "ID": {
+                                "type": "string",
+                                "title": "ID",
+                                "description": "ID"
+                            },
+                            "AppName": {
+                                "type": "string",
+                                "title": "AppName",
+                                "description": "AppName"
+                            },
+                            "Date": {
+                                "type": "string",
+                                "title": "Date",
+                                "description": "Date"
+                            },
+                            "Resource": {
+                                "type": "string",
+                                "title": "Resource",
+                                "description": "Resource"
+                            },
+                            "EmployeeName": {
+                                "type": "string",
+                                "title": "EmployeeName",
+                                "description": "EmployeeName"
+                            },
+                            "Activity": {
+                                "type": "string",
+                                "title": "Activity",
+                                "description": "Activity"
+                            },
+                            "Job": {
+                                "type": "string",
+                                "title": "Job",
+                                "description": "Job"
+                            },
+                            "JobDescription": {
+                                "type": "string",
+                                "title": "JobDescription",
+                                "description": "JobDescription"
+                            },
+                            "Section": {
+                                "type": "string",
+                                "title": "Section",
+                                "description": "Section"
+                            },
+                            "SectionDescription": {
+                                "type": "string",
+                                "title": "SectionDescription",
+                                "description": "SectionDescription"
+                            },
+                            "Phase": {
+                                "type": "string",
+                                "title": "Phase",
+                                "description": "Phase"
+                            },
+                            "PhaseDescription": {
+                                "type": "string",
+                                "title": "PhaseDescription",
+                                "description": "PhaseDescription"
+                            },
+                            "Workorder": {
+                                "type": "string",
+                                "title": "WorkOrder",
+                                "description": "WorkOrder"
+                            },
+                            "WorkOrderDescription": {
+                                "type": "string",
+                                "title": "WorkOrderDescription",
+                                "description": "WorkOrderDescription"
+                            },
+                            "CostCenter": {
+                                "type": "string",
+                                "title": "CostCenter",
+                                "description": "CostCenter"
+                            },
+                            "ReceivingUnitTruck": {
+                                "type": "string",
+                                "title": "ReceivingUnitTruck",
+                                "description": "ReceivingUnitTruck"
+                            },
+                            "SendingUnitTrailer": {
+                                "type": "string",
+                                "title": "SendingUnitTrailer",
+                                "description": "SendingUnitTrailer"
+                            },
+                            "Qty": {
+                                "type": "string",
+                                "title": "Qty",
+                                "description": "Qty"
+                            },
+                            "UoM": {
+                                "type": "string",
+                                "title": "UoM",
+                                "description": "UoM"
+                            },
+                            "PayCode": {
+                                "type": "string",
+                                "title": "PayCode",
+                                "description": "PayCode"
+                            },
+                            "Hours": {
+                                "type": "string",
+                                "title": "Hours",
+                                "description": "Hours"
+                            },
+                            "Comments": {
+                                "type": "string",
+                                "title": "Comments",
+                                "description": "Comments"
+                            },
+                            "SaveSubmitStatus": {
+                                "type": "string",
+                                "title": "SaveSubmitStatus",
+                                "description": "SaveSubmitStatus"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "outputs": {
+            "$schema": "http://json-schema.org/draft-07/schema",
+            "title": "output",
+            "type": "object",
+            "required": [
+                "main"
+            ],
+            "properties": {
+                "main": {
+                    "type": "array",
+                    "title": "main",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [],
+                        "properties": {
+                            "ID": {
+                                "type": "string",
+                                "title": "ID",
+                                "description": "ID"
+                            },
+                            "AppName": {
+                                "type": "string",
+                                "title": "AppName",
+                                "description": "AppName"
+                            },
+                            "Date": {
+                                "type": "string",
+                                "title": "Date",
+                                "description": "Date"
+                            },
+                            "Resource": {
+                                "type": "string",
+                                "title": "Resource",
+                                "description": "Resource"
+                            },
+                            "EmployeeName": {
+                                "type": "string",
+                                "title": "EmployeeName",
+                                "description": "EmployeeName"
+                            },
+                            "Activity": {
+                                "type": "string",
+                                "title": "Activity",
+                                "description": "Activity"
+                            },
+                            "Job": {
+                                "type": "string",
+                                "title": "Job",
+                                "description": "Job"
+                            },
+                            "JobDescription": {
+                                "type": "string",
+                                "title": "JobDescription",
+                                "description": "JobDescription"
+                            },
+                            "Section": {
+                                "type": "string",
+                                "title": "Section",
+                                "description": "Section"
+                            },
+                            "SectionDescription": {
+                                "type": "string",
+                                "title": "SectionDescription",
+                                "description": "SectionDescription"
+                            },
+                            "Phase": {
+                                "type": "string",
+                                "title": "Phase",
+                                "description": "Phase"
+                            },
+                            "PhaseDescription": {
+                                "type": "string",
+                                "title": "PhaseDescription",
+                                "description": "PhaseDescription"
+                            },
+                            "Workorder": {
+                                "type": "string",
+                                "title": "WorkOrder",
+                                "description": "WorkOrder"
+                            },
+                            "WorkOrderDescription": {
+                                "type": "string",
+                                "title": "WorkOrderDescription",
+                                "description": "WorkOrderDescription"
+                            },
+                            "CostCenter": {
+                                "type": "string",
+                                "title": "CostCenter",
+                                "description": "CostCenter"
+                            },
+                            "ReceivingUnitTruck": {
+                                "type": "string",
+                                "title": "ReceivingUnitTruck",
+                                "description": "ReceivingUnitTruck"
+                            },
+                            "SendingUnitTrailer": {
+                                "type": "string",
+                                "title": "SendingUnitTrailer",
+                                "description": "SendingUnitTrailer"
+                            },
+                            "Qty": {
+                                "type": "string",
+                                "title": "Qty",
+                                "description": "Qty"
+                            },
+                            "UoM": {
+                                "type": "string",
+                                "title": "UoM",
+                                "description": "UoM"
+                            },
+                            "PayCode": {
+                                "type": "string",
+                                "title": "PayCode",
+                                "description": "PayCode"
+                            },
+                            "Hours": {
+                                "type": "string",
+                                "title": "Hours",
+                                "description": "Hours"
+                            },
+                            "Comments": {
+                                "type": "string",
+                                "title": "Comments",
+                                "description": "Comments"
+                            },
+                            "SaveSubmitStatus": {
+                                "type": "string",
+                                "title": "SaveSubmitStatus",
+                                "description": "SaveSubmitStatus"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "category": "approval"
+    }
+}

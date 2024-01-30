@@ -1,0 +1,45 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form">
+	<TableSelectDialog
+		noDataText="No Sections Found"
+		title="Select a SECTION"
+		liveChange=".on_liveSearch"
+		search=".on_Search"
+		confirm=".handleSectionClose"
+		cancel=".handleSectionClose"
+		items="{searchHelpSection>/}">
+		<ColumnListItem vAlign="Middle">
+			<cells>
+				<Text text="{searchHelpSection>ID}" />
+				<Text text="{searchHelpSection>Name}" />
+				<Text text="{searchHelpSection>Description}" />
+				<Text text="{searchHelpSection>ProjectManager}" />
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Section ID" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Name" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Description" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Project Manager" />
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,48 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form">
+	<TableSelectDialog
+		noDataText="No Phases Found"
+		searchPlaceholder="Search Phases by ID, Name, and Description"
+		title="Select a Phase"
+		liveChange=".on_liveSearch"
+		search=".on_Search"
+		confirm=".handlePhaseClose"
+		cancel=".handlePhaseClose"
+		items="{searchHelpPhase>/}">
+		<ColumnListItem vAlign="Middle">
+			<cells>
+				<Text text="{searchHelpPhase>ID}" />
+				<Text text="{searchHelpPhase>Name}" />
+				<Text text="{searchHelpPhase>Description}" />
+				<Text text="{searchHelpPhase>ProjectManager}" />
+				<!-- <Text text="{searchHelpPhase>CompanyID}" />
+				<Text text="{searchHelpPhase>CompanyDescription}" /> -->
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Phase ID" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Name" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Description" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Project Manager" />
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>
