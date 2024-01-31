@@ -1,0 +1,36 @@
+
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+
+  <Dialog
+      id="valueHelpDialog"
+      title="Value Help"
+      contentWidth="40%"
+   >
+      <Table
+         id="valueHelpTable"
+         mode="SingleSelectMaster"
+         items="{valueHelpModel>/items}"
+         selectionChange="onValueHelpRowSelectionChange"
+      >
+         <columns>
+            <Column>
+               <Text text="Key" />
+            </Column>
+            <Column>
+               <Text text="Text" />
+            </Column>
+         </columns>
+         <items>
+            <ColumnListItem
+               type="Navigation"
+               press="onValueHelpRowPress"
+            >
+               <cells>
+                  <Text text="{valueHelpModel>key}" />
+                  <Text text="{valueHelpModel>costcenter}" />
+               </cells>
+            </ColumnListItem>
+         </items>
+      </Table>
+   </Dialog>
+</core:FragmentDefinition>

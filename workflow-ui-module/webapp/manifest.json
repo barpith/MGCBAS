@@ -1,0 +1,350 @@
+{
+    "_version": "1.26.0",
+    "sap.app": {
+        "id": "com.mgc.bpadispatch.workflowuimodule",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.8.4",
+            "toolsId": "82eb090a-e428-4e04-a226-78bc84641919"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "sap/opu/odata/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "v2": {
+                "uri": "odata/v2/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/v2/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "mgcdb-srv": {
+                "uri": "v2/mgcdb-srv",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/mgcdb-srv/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.82.2",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.mgc.bpadispatch.workflowuimodule.i18n.i18n"
+                }
+            },
+            "db": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {}
+            },
+            "v2": {
+                "dataSource": "v2",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "mgcdb-srv": {
+                "dataSource": "mgcdb-srv",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "com.mgc.bpadispatch.workflowuimodule.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "RouteMyTaskUI",
+                    "pattern": ":?query:",
+                    "target": [
+                        "TargetMyTaskUI"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetMyTaskUI": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "MyTaskUI",
+                    "viewName": "MyTaskUI"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "com.mgc.bpadispatch.workflowuimodule.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "bpa_dispatch"
+    },
+    "sap.bpa.task": {
+        "_version": "1.0.0",
+        "outcomes": [
+            {
+                "id": "approve",
+                "label": "Approve"
+            },
+            {
+                "id": "reject",
+                "label": "Reject"
+            }
+        ],
+        "inputs": {
+            "$schema": "http://json-schema.org/draft-07/schema",
+            "title": "ip",
+            "type": "object",
+            "properties": {
+                "main": {
+                    "type": "array",
+                    "title": "main",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [],
+                        "properties": {
+                            "ID": {
+                                "type": "string",
+                                "title": "ID",
+                                "description": "ID"
+                            },
+                            "AppName": {
+                                "type": "string",
+                                "title": "AppName",
+                                "description": "AppName"
+                            },
+                            "Date": {
+                                "type": "string",
+                                "title": "Date",
+                                "description": "Date"
+                            },
+                            "Resource": {
+                                "type": "string",
+                                "title": "Resource",
+                                "description": "Resource"
+                            },
+                            "Activity": {
+                                "type": "string",
+                                "title": "Activity",
+                                "description": "Activity"
+                            },
+                            "ReceivingUnit": {
+                                "type": "string",
+                                "title": "ReceivingUnit",
+                                "description": "ReceivingUnit"
+                            },
+                            "SendingUnit": {
+                                "type": "string",
+                                "title": "SendingUnit",
+                                "description": "SendingUnit"
+                            },
+                            "WBS": {
+                                "type": "string",
+                                "title": "WBS",
+                                "description": "WBS"
+                            },
+                            "CostCenter": {
+                                "type": "string",
+                                "title": "CostCenter",
+                                "description": "CostCenter"
+                            },
+                            "WorkOrder": {
+                                "type": "string",
+                                "title": "WorkOrder",
+                                "description": "WorkOrder"
+                            },
+                            "PayCode": {
+                                "type": "string",
+                                "title": "PayCode",
+                                "description": "PayCode"
+                            },
+                            "Hours": {
+                                "type": "string",
+                                "title": "Hours",
+                                "description": "Hours"
+                            },
+                            "SaveSubmitStatus": {
+                                "type": "string",
+                                "title": "SaveSubmitStatus",
+                                "description": "SaveSubmitStatus"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "outputs": {
+            "$schema": "http://json-schema.org/draft-07/schema",
+            "title": "output",
+            "type": "object",
+            "required": [
+                "main"
+            ],
+            "properties": {
+                "main": {
+                    "type": "array",
+                    "title": "main",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [],
+                        "properties": {
+                            "ID": {
+                                "type": "string",
+                                "title": "ID",
+                                "description": "ID"
+                            },
+                            "AppName": {
+                                "type": "string",
+                                "title": "AppName",
+                                "description": "AppName"
+                            },
+                            "Date": {
+                                "type": "string",
+                                "title": "Date",
+                                "description": "Date"
+                            },
+                            "Resource": {
+                                "type": "string",
+                                "title": "Resource",
+                                "description": "Resource"
+                            },
+                            "Activity": {
+                                "type": "string",
+                                "title": "Activity",
+                                "description": "Activity"
+                            },
+                            "ReceivingUnit": {
+                                "type": "string",
+                                "title": "ReceivingUnit",
+                                "description": "ReceivingUnit"
+                            },
+                            "SendingUnit": {
+                                "type": "string",
+                                "title": "SendingUnit",
+                                "description": "SendingUnit"
+                            },
+                            "WBS": {
+                                "type": "string",
+                                "title": "WBS",
+                                "description": "WBS"
+                            },
+                            "CostCenter": {
+                                "type": "string",
+                                "title": "CostCenter",
+                                "description": "CostCenter"
+                            },
+                            "WorkOrder": {
+                                "type": "string",
+                                "title": "WorkOrder",
+                                "description": "WorkOrder"
+                            },
+                            "PayCode": {
+                                "type": "string",
+                                "title": "PayCode",
+                                "description": "PayCode"
+                            },
+                            "Hours": {
+                                "type": "string",
+                                "title": "Hours",
+                                "description": "Hours"
+                            },
+                            "SaveSubmitStatus": {
+                                "type": "string",
+                                "title": "SaveSubmitStatus",
+                                "description": "SaveSubmitStatus"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "category": "approval"
+    }
+}
