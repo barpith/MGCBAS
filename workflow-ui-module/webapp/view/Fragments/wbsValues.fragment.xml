@@ -1,0 +1,74 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <!-- id="myDialog" -->
+    <TableSelectDialog
+       
+        noDataText="No WBS Found"
+        title="Select WBS"
+        liveChange="onSearchWBSValue"
+        confirm="handleWBSClose"
+        cancel="handleWBSClose"
+        items="{WBSValues>/}">
+        <ColumnListItem vAlign="Middle">
+            <cells>
+                <Text text="{WBSValues>ID}" />
+                <Text text="{WBSValues>NAME}" />
+                <Text text="{WBSValues>ID_1}" />
+                <Text text="{WBSValues>NAME_1}" />
+                <Text text="{WBSValues>ID_2}" />
+                <Text text="{WBSValues>NAME_2}" />
+                <Text text="{WBSValues>COMPANYID}" />
+                <Text text="{WBSValues>PROJECTMANAGEREMAIL_2}" />
+                <Text text="{WBSValues>PROJECTMANAGER_2}" />
+            </cells>
+        </ColumnListItem>
+        <columns>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <header>
+                    <Text text="Job ID" />
+                </header>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <header>
+                    <Text text="Job Name" />
+                </header>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <header>
+                    <Text text="Section ID" />
+                </header>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <header>
+                    <Text text="Section Name" />
+                </header>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <header>
+                    <Text text="Phase ID" />
+                </header>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <header>
+                    <Text text="Phase Name" />
+                </header>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <header>
+                    <Text text="Company Code" />
+                </header>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <header>
+                    <Text text="Project Manager ID" />
+                </header>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <header>
+                    <Text text="Project Manager Name" />
+                </header>
+            </Column>
+        </columns>
+    </TableSelectDialog>
+</core:FragmentDefinition>
