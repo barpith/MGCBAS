@@ -1,0 +1,92 @@
+_schema-version: "3.2"
+ID: bpa_crew_taskui
+version: 0.0.1
+modules:
+- name: bpa_crew_taskui-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: bpa_crew_taskui-destination-service
+    parameters:
+      content-target: true
+  - name: bpa_crew_taskui_html_repo_host
+    parameters:
+      service-key:
+        name: bpa_crew_taskui_html_repo_host-key
+  - name: uaa_bpa_crew_taskui
+    parameters:
+      service-key:
+        name: uaa_bpa_crew_taskui-key
+  parameters:
+    content:
+      subaccount:
+        destinations:
+        - Name: bpacrewtaskui_bpa_crew_taskui_html_repo_host
+          ServiceInstanceName: bpa_crew_taskui-html5-app-host-service
+          ServiceKeyName: bpa_crew_taskui_html_repo_host-key
+          sap.cloud.service: bpacrewtaskui
+        - Authentication: OAuth2UserTokenExchange
+          Name: bpacrewtaskui_uaa_bpa_crew_taskui
+          ServiceInstanceName: bpa_crew_taskui-xsuaa-service
+          ServiceKeyName: uaa_bpa_crew_taskui-key
+          sap.cloud.service: bpacrewtaskui
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: bpa_crew_taskui-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: bpa_crew_taskui_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - commgctaskuicrewworkflowuimodule.zip
+      name: commgctaskuicrewworkflowuimodule
+      target-path: resources/
+- name: commgctaskuicrewworkflowuimodule
+  type: html5
+  path: workflow-ui-module
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: bpa_crew_taskui-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        subaccount:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: bpa_crew_taskui-destination-service
+    service-plan: lite
+- name: bpa_crew_taskui_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: bpa_crew_taskui-html5-app-host-service
+    service-plan: app-host
+- name: uaa_bpa_crew_taskui
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: bpa_crew_taskui-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo

@@ -1,0 +1,322 @@
+<mvc:View controllerName="com.mgc.taskuicrew.workflowuimodule.controller.App"
+   xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:table="sap.ui.table"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <App id="app">
+    <Page id="page" title="{i18n>title}">
+        <content >
+            
+                    <Panel id="Panel_100" width="auto" class="sapUiResponsiveMargin" >
+                      
+                        <Label text="Date :" class="sapUiTinyMarginEnd sapUiTinyMarginBegin" />
+                        <Text id="dateTextField" text=""  />
+                        <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                        <fb:filterGroupItems>
+                           
+                            <fb:FilterGroupItem name="Resources" label="Resources" groupName="Group1" visibleInFilterBar="true" >
+                                <fb:control>
+                                    <Input
+                                        type="Text"
+                                        value=""
+                                        placeholder="Enter Resource"
+                                        showValueHelp="true"
+                                        valueHelpRequest="resourceHandleValueHelp"
+                                        liveChange="resourceLiveChange"
+                                    />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            
+ 
+                             <fb:FilterGroupItem name="EmployeeName" label="EmployeeName" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <Input
+                                        type="Text"
+                                        value=""
+                                        placeholder="Enter EmployeeName"
+                                        showValueHelp="true"
+                                        valueHelpRequest="resourceHandleValueHelp"
+                                        liveChange="resourceLiveChange"
+                                    />
+                                </fb:control>
+                            </fb:FilterGroupItem>
+ 
+ 
+                            </fb:filterGroupItems>
+                            </fb:FilterBar>
+                    </Panel>
+   
+                 <VBox id= "table" >
+                 <ScrollContainer id="_IDGenScrollContainer1"  horizontal="true" vertical="true" focusable="true">
+            <table:Table id="idUiTable" columnMove="handleColumnMove" rows="{context>/main}"  width="auto" fixedColumnCount="2" class="sapUiResponsiveMargin" selectionMode="MultiToggle">
+                <table:extension>
+                    <OverflowToolbar id="_IDGenOverflowToolbar1">
+                        <!-- <Button id="testBtn" text="Accept" type="Accept" press="onButtonPress" visible="false"/> -->
+                        <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+                         <MenuButton type="Transparent" id="_IDGenMenuButton1" text="Cost Objects">
+                            <menu>
+                                <Menu id="_IDGenMenu1">
+                                    <MenuItem id="_IDGenMenuItem10" text="Hide PayCode" icon="sap-icon://hide" press=".on_MenuAction" />
+                                    <MenuItem id="_IDGenMenuItem1" text="Hide WBS" icon="sap-icon://hide"  press=".on_MenuAction"/>
+                                    <MenuItem id="_IDGenMenuItem2" text="Hide Work Order" icon="sap-icon://hide"  press=".on_MenuAction"/>
+                                    <MenuItem id="_IDGenMenuItem3" text="Hide Cost Center" icon="sap-icon://hide"  press=".on_MenuAction"/>
+                                    <!-- <MenuItem id="_IDGenMenuItem4" text="Hide Equipment" icon="sap-icon://hide"  press=".on_MenuAction"/> -->
+                                    <MenuItem id="_IDGenMenuItem5" text="Hide All" icon="sap-icon://hide"  press=".on_MenuAction"/>
+                                    <!-- <MenuItem id="_IDGenMenuItem6" text="Show All" icon="sap-icon://show"  press=".on_MenuAction"/> -->
+                                </Menu>
+                            </menu>
+                        </MenuButton>
+                       
+                            <Button icon="sap-icon://excel-attachment" press="onExport" type="Success"/>
+ 
+                            <Button id="_IDGenButton2" icon="sap-icon://clear-filter" width="2em" press="onClearFilters" type="Neutral" />
+ 
+                                   
+                    </OverflowToolbar>
+                </table:extension>
+                <table:columns>
+                    <table:Column id="Resource" name="Resource" width="10rem" filterProperty="Resource" sortProperty="Resource" resizable="true" >
+            <Label id="_IDGenLabel1" text="Resource" wrapping="true"/>
+            <table:template>
+                <Input id="_IDGenInput2"
+                value="{context>Resource}"
+                    type="Text"
+                placeholder="Enter Resource"
+                showValueHelp="false"
+                valueHelpRequest="resourceHandleValueHelp"
+                editable="{= ${context>Resource} === '' ? false : true }" />
+               
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="EmployeeName"  name="EmployeeName" width="9rem" sortProperty="EmployeeName" filterProperty="EmployeeName" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel2" text="Employee Name" wrapping="true"/>
+            <table:template>
+                <Text id="_IDGenInput3" text="{context>EmployeeName}" wrapping="false"/>
+            </table:template>
+        </table:Column>
+ 
+        <table:Column  id="Activity" name="Activity" width="9rem" sortProperty="Activity" filterProperty="Activity" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel3" text="Activity" wrapping="true"/>
+            <table:template>
+                <Input id="_IDGenInput4"
+                                        type="Text"
+                                        value="{context>Activity}"
+                                        placeholder="Enter Activity"
+                                       showValueHelp="true"
+                                       valueHelpRequest="activityHandleValueHelp"
+                                       editable="{= ${context>Activity} === '' ? false : true }" />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="Job" name="Job" width="9rem" sortProperty="Job" filterProperty="Job" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel4" text="Job" wrapping="true"/>
+            <table:template>
+                <Input id="_IDGenInput5"
+                                        type="Text"
+                                        value="{context>Job}"
+                                        placeholder="Enter Job"
+                                       showValueHelp="true"
+                                       valueHelpRequest="jobHandleValueHelp"
+                                       editable="{= ${context>Job} === '' ? false : true }" />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="JobDescription" name="JobDescription" width="9rem" sortProperty="JobDescription" filterProperty="JobDescription" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel5" text="Job Description" wrapping="true"/>
+            <table:template>
+                <Text id="_IDGenInput6"
+                                       
+                                        text="{context>JobDescription}"
+                                       
+                                       />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="Section" name="Section" width="9rem" sortProperty="Section" filterProperty="Section" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel6" text="Section" wrapping="true"/>
+            <table:template>
+                <Input id="_IDGenInput7"
+                                        value="{context>Section}"
+                                         type="Text"
+                                        placeholder="Enter Section"
+                                       showValueHelp="true"
+                                       valueHelpRequest="sectionHandleValueHelp"
+                                       editable="{= ${context>Section} === '' ? false : true }"
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="SectionDescription" name="SectionDescription" width="9rem" sortProperty="SectionDescription" filterProperty="SectionDescription" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel7" text="Section Description" wrapping="true"/>
+            <table:template>
+                 <Text id="_IDGenInput8"
+                                   
+                                        text="{context>SectionDescription}"
+                                       
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="Phase" name="Phase" width="9rem" sortProperty="Phase" filterProperty="Phase" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel8" text="Phase" wrapping="true"/>
+            <table:template>
+                <Input id="_IDGenInput9"
+                                        value="{context>Phase}"
+                                         type="Text"
+                                        placeholder="Enter Phase"
+                                       showValueHelp="true"
+                                       valueHelpRequest="phaseHandleValueHelp"
+                                       editable="{= ${context>Phase} === '' ? false : true }"
+                                    />
+            </table:template>
+        </table:Column>
+       
+ 
+        <table:Column id="PhaseDescription" name="PhaseDescription" width="9rem" sortProperty="PhaseDescription" filterProperty="PhaseDescription" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel9" text="Phase Description" wrapping="true"/>
+            <table:template>
+                 <Text id="_IDGenInput10"
+                                       
+                                        text="{context>PhaseDescription}"
+                                       
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="Qty" sortProperty="Qty" name="Qty" width="5rem" filterProperty="Qty" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel10" text="Qty" wrapping="true"/>
+            <table:template>
+                 <Input id="_IDGenInput16"
+                                        value="{context>Qty}"
+                                        placeholder="Qty"
+                                        editable="{= ${context>Qty} === '' ? false : true }"
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="Workorder" sortProperty="Workorder" name="Workorder" width="9rem" filterProperty="Workorder" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel11" text="WorkOrder" wrapping="true"/>
+            <table:template>
+                 <Input id="_IDGenInput11"
+                                        value="{context>Workorder}"
+                                         type="Text"
+                                        placeholder="Enter WorkOrder"
+                                       showValueHelp="true"
+                                       valueHelpRequest="workorderHandleValueHelp"
+                                       editable="{= ${context>Workorder} === '' ? false : true }"
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="WorkOrderDescription" name="WorkOrderDescription" width="9rem" sortProperty="WorkOrderDescription" filterProperty="WorkOrderDescription" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel12" text="WorkOrder Description" wrapping="true"/>
+            <table:template>
+                <Text id="_IDGenText1"
+                                       
+                                        text="{context>WorkOrderDescription}"
+                                       
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="CostCenter" sortProperty="CostCenter" name="CostCenter" width="9rem" filterProperty="CostCenter" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel13" text="Cost Center" wrapping="true"/>
+            <table:template>
+                 <Input id="_IDGenInput110"
+                                        value="{context>CostCenter}"
+                                         type="Text"
+                                        placeholder="Enter Cost Center"
+                                       showValueHelp="true"
+                                       valueHelpRequest="costcenterHandleValueHelp"
+                                       liveChange = "costCenterLiveChange"
+                                       editable="{= ${context>CostCenter} === '' ? false : true }"
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="ReceivingUnitTruck" name="ReceivingUnitTruck" width="10rem" sortProperty="ReceivingUnitTruck" filterProperty="ReceivingUnitTruck" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel14" text="Receiving Unit - Truck" wrapping="true"/>
+            <table:template>
+                 <Input id="_IDGenInput12"
+                                        value="{context>ReceivingUnitTruck}"
+                                         type="Text"
+                                        placeholder="Enter Receiving Unit - Truck"
+                                       showValueHelp="true"
+                                       valueHelpRequest="receivingunitHandleValueHelp"
+                                       editable="{= ${context>ReceivingUnitTruck} === '' ? false : true }"
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="SendingUnitTrailer" name="SendingUnitTrailer" width="10rem" sortProperty="SendingUnitTrailer" filterProperty="SendingUnitTrailer" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel15" text="Sending Unit - Trailer" wrapping="true"/>
+            <table:template>
+                <Input id="_IDGenInput13"
+                                        value="{context>SendingUnitTrailer}"
+                                         type="Text"
+                                        placeholder="Enter Sending Unit - Trailer"
+                                       showValueHelp="true"
+                                       valueHelpRequest="sendingunitHandleValueHelp"
+                                       editable="{= ${context>SendingUnitTrailer} === '' ? false : true }"
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="UoM" name="UoM" width="5rem" sortProperty="UoM" filterProperty="UoM" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel16" text="UoM" wrapping="true"/>
+            <table:template>
+                <Input id="_IDGenInput14"
+                                        value="{context>UoM}"
+                                         type="Text"
+                                        placeholder="Enter UoM"
+                                       showValueHelp="true"
+                                       valueHelpRequest="uomHandleValueHelp"
+                                       editable="{= ${context>UoM} === '' ? false : true }"
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="PayCode" name="PayCode" width="9rem" sortProperty="PayCode" filterProperty="PayCode" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel17" text="Pay Code" wrapping="true"/>
+            <table:template>
+                 <Input id="_IDGenInput15"
+                                        value="{context>PayCode}"
+                                         type="Text"
+                                        placeholder="Enter Pay Code"
+                                       showValueHelp="true"
+                                       valueHelpRequest="paycodeHandleValueHelp"
+                                       editable="{= ${context>PayCode} === '' ? false : true }"
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="Hours" name="Hours" width="5rem" sortProperty="Hours" filterProperty="Hours" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel18" text="Hours" wrapping="true"/>
+            <table:template>
+                <Input id="_IDGenInput160"
+                                        value="{context>Hours}"
+                                        placeholder="Hours"
+                                        editable="{= ${context>Hours} === '' ? false : true }"
+                                    />
+            </table:template>
+        </table:Column>
+ 
+        <table:Column id="Comments" name="Comments" width="9rem" sortProperty="Comments" filterProperty="Comments" resizable="true" autoResizable="true">
+            <Label id="_IDGenLabel19" text="Comments" wrapping="true"/>
+            <table:template>
+             <TextArea id="textArea_01" height="2rem" showExceededText="false" />
+            </table:template>
+            </table:Column>
+            </table:columns>
+            </table:Table>
+            </ScrollContainer>
+             </VBox>
+          
+        </content >
+    </Page>
+    </App>
+    </mvc:View>

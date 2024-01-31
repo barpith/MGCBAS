@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form">
+    <SelectDialog
+		noDataText="No Equipments Found"
+		title="Select an Equipment"
+		liveChange=".on_EquipSearch"
+		search=".on_EquipSearch"
+		searchPlaceholder="Search Equipment"
+		confirm=".handlereceivingunitClose"
+		cancel=".handlereceivingunitClose"
+		items="{
+			path: 'receivingEquipment>/'
+		}">
+		<StandardListItem
+			title="{receivingEquipment>LastName}"
+			description="{receivingEquipment>ID}"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>
