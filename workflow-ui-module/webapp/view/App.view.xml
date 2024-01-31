@@ -1,0 +1,127 @@
+<mvc:View controllerName="com.mgc.bpaoffice.workflowuimodule.controller.App"
+   xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+xmlns="sap.m">
+<App id="app">
+    <Page id = "scroll">
+            <content>
+                <Table
+                        id="workDetailTab"
+                        mode="SingleSelect"
+                        items = "{path:'context>/main'}"
+                    >
+                        <!-- <headerToolbar>
+                            <OverflowToolbar id="_IDGenOverflowToolbar2">
+                                <Title id="_IDGenTitle4" text="Employee Details" />
+                                <ToolbarSpacer id="_IDGenToolbarSpacer3" />
+                                <Button id="_IDGenButton2"
+                                    icon="sap-icon://add"
+                                    text="Add Work"
+                                    type="Accept"
+                                    press=".onAddWork"
+                                />
+                                <Button id="_IDGenButton3"
+                                    icon="sap-icon://delete"
+                                    text="Remove Work"
+                                    type="Reject"
+                                    press=".deleteWorkRow"
+                                />
+                            </OverflowToolbar>
+                        </headerToolbar> -->
+                        <columns>
+                            <Column id="_IDGenColumn1">
+                                <Text id="_IDGenText1" text="Date" />
+                            </Column>
+                            <Column id="_IDGenColumn2">
+                                <Text id="_IDGenText2" text="Employee ID" />
+                            </Column>
+                            <Column id="_IDGenColumn3">
+                                <Text id="_IDGenText3" text="Employee Name" />
+                            </Column>
+                            <Column id="_IDGenColumn4">
+                                <Text id="_IDGenText4" text="Costcentre" />
+                            </Column>
+                            <Column id="_IDGenColumn5">
+                                <Text id="_IDGenText5" text="Job" />
+                            </Column>
+                            <Column id="_IDGenColumn6">
+                                <Text id="_IDGenText6" text="Job Description" />
+                            </Column>
+                            <Column id="_IDGenColumn7">
+                                <Text id="_IDGenText7" text="Section" />
+                            </Column>
+                            <Column id="_IDGenColumn8">
+                                <Text id="_IDGenText8" text="Section Description" />
+                            </Column>
+                            <Column id="_IDGenColumn9">
+                                <Text id="_IDGenText9" text="Phase" />
+                            </Column>
+                            <Column id="_IDGenColumn10">
+                                <Text id="_IDGenText10" text="Phase Description" />
+                            </Column>
+                            <Column id="_IDGenColum11">
+                                <Text id="_IDGenText11" text="Paycode" />
+                            </Column>
+                            <Column id="_IDGenColumn12">
+                                <Text id="_IDGenText12" text="Hours" />
+                            </Column>
+                        </columns>
+                        <items>
+                        <ColumnListItem id="_IDGenColumnListItem1" vAlign="Middle" type="Active" press="onTableRowClick">
+                        <cells>
+                            <Input id="_IDGenInput1"
+                                        placeholder="Date"
+                                        value="{context>Date}"
+                                    />
+                                    <Input id="_IDGenInput2"
+                                        placeholder="Employee ID"
+                                        value="{context>EmployeeID}"
+                                    />
+                                    <Input id="_IDGenInput3"
+                                        placeholder="Employee ID"
+                                        value="{context>EmployeeName}"
+                                    />
+                                    <Input id="_IDGenInput4"
+                                        placeholder="Cost Center"
+                                        value="{context>CostCenter}"
+                                    />
+                                    <Input id="_IDGenInput5"
+                                        placeholder="Job"
+                                        value="{context>Job}"
+                                    />
+                                    <Input id="_IDGenInput6"
+                                        placeholder="Job Description"
+                                        value="{context>JobDescription}"
+                                    />
+                                    <Input id="_IDGenInput7"
+                                        placeholder="Section"
+                                        value="{context>Section}"
+                                    />
+                                    <Input id="_IDGenInput8"
+                                        placeholder="Section Description"
+                                        value="{context>SectionDescription}"
+                                    />
+                                    <Input id="_IDGenInput9"
+                                        placeholder="Phase"
+                                        value="{context>Phase}"
+                                    />
+                                    <Input id="_IDGenInput10"
+                                        placeholder="Phase Description"
+                                        value="{context>PhaseDescription}"
+                                    />
+
+                                    <Input id="_IDGenInput11"
+                                        value="{context>Paycode}"
+                                        placeholder="Paycode"
+                                    />
+                                    <Input id="_IDGenInput12"
+                                        value="{context>Hours}"
+                                        placeholder="Hours"
+                                    />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+            </content>
+        </Page>
+</App>
+</mvc:View>

@@ -1,0 +1,92 @@
+_schema-version: "3.2"
+ID: bpa_office
+version: 0.0.1
+modules:
+- name: bpa_office-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: bpa_office-destination-service
+    parameters:
+      content-target: true
+  - name: bpa_office_html_repo_host
+    parameters:
+      service-key:
+        name: bpa_office_html_repo_host-key
+  - name: uaa_bpa_office
+    parameters:
+      service-key:
+        name: uaa_bpa_office-key
+  parameters:
+    content:
+      subaccount:
+        destinations:
+        - Name: bpaoffice_bpa_office_html_repo_host
+          ServiceInstanceName: bpa_office-html5-app-host-service
+          ServiceKeyName: bpa_office_html_repo_host-key
+          sap.cloud.service: bpaoffice
+        - Authentication: OAuth2UserTokenExchange
+          Name: bpaoffice_uaa_bpa_office
+          ServiceInstanceName: bpa_office-xsuaa-service
+          ServiceKeyName: uaa_bpa_office-key
+          sap.cloud.service: bpaoffice
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: bpa_office-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: bpa_office_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - commgcbpaofficeworkflowuimodule.zip
+      name: commgcbpaofficeworkflowuimodule
+      target-path: resources/
+- name: commgcbpaofficeworkflowuimodule
+  type: html5
+  path: workflow-ui-module
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: bpa_office-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        subaccount:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: bpa_office-destination-service
+    service-plan: lite
+- name: bpa_office_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: bpa_office-html5-app-host-service
+    service-plan: app-host
+- name: uaa_bpa_office
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: bpa_office-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo
