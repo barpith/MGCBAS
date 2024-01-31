@@ -1,0 +1,92 @@
+_schema-version: "3.2"
+ID: bpadispatch3
+version: 0.0.1
+modules:
+- name: bpadispatch3-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: bpadispatch3-destination-service
+    parameters:
+      content-target: true
+  - name: bpadispatch3_html_repo_host
+    parameters:
+      service-key:
+        name: bpadispatch3_html_repo_host-key
+  - name: uaa_bpadispatch3
+    parameters:
+      service-key:
+        name: uaa_bpadispatch3-key
+  parameters:
+    content:
+      subaccount:
+        destinations:
+        - Name: bpadispatch3_bpadispatch3_html_repo_host
+          ServiceInstanceName: bpadispatch3-html5-app-host-service
+          ServiceKeyName: bpadispatch3_html_repo_host-key
+          sap.cloud.service: bpadispatch3
+        - Authentication: OAuth2UserTokenExchange
+          Name: bpadispatch3_uaa_bpadispatch3
+          ServiceInstanceName: bpadispatch3-xsuaa-service
+          ServiceKeyName: uaa_bpadispatch3-key
+          sap.cloud.service: bpadispatch3
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: bpadispatch3-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: bpadispatch3_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - bpadispatch3workflowuimodule.zip
+      name: bpadispatch3workflowuimodule
+      target-path: resources/
+- name: bpadispatch3workflowuimodule
+  type: html5
+  path: workflow-ui-module
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: bpadispatch3-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        subaccount:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: bpadispatch3-destination-service
+    service-plan: lite
+- name: bpadispatch3_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: bpadispatch3-html5-app-host-service
+    service-plan: app-host
+- name: uaa_bpadispatch3
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: bpadispatch3-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo
